@@ -1,7 +1,19 @@
+"use client"
+
 import Input from "@/components/input"
 import { LogInIcon, SearchIcon } from "lucide-react"
+import { debounce, parseAsString, useQueryState } from "nuqs"
+import type { ChangeEvent } from "react"
 
 export default function Header() {
+  const [search, setSearch] = useQueryState("q", parseAsString.withDefault(""))
+
+  function handleSearchChange(event: ChangeEvent<HTMLInputElement>) {
+    setSearch(event.target.value, {
+      limitUrlUpdates: event.target.value !== "" ? debounce(500) : undefined,
+    })
+  }
+
   return (
     <div className="max-w-225 mx-auto w-full flex justify-between items-center">
       <div className="space-y-1">
@@ -17,6 +29,8 @@ export default function Header() {
             placeholder="search for features..."
             type="text"
             className="w-67.5 pl-8"
+            value={search}
+            onChange={handleSearchChange}
           />
         </div>
         <button

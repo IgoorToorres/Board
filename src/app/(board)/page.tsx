@@ -3,7 +3,13 @@ import { Card } from "@/components/card"
 import { Section } from "@/components/section"
 import { ArchiveIcon, MessageCircleIcon, ThumbsUpIcon } from "lucide-react"
 
-export default function Home() {
+type BoardProps = {
+  searchParams: Promise<{ q?: string }>
+}
+
+export default async function Board({ searchParams }: BoardProps) {
+  const { q } = await searchParams
+
   return (
     <div className="max-w-405 w-full mx-auto p-10 flex flex-col gap-8 h-dvh">
       <div />
