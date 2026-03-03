@@ -21,6 +21,7 @@ export default function UserButton() {
           className="size-8 rounded-full overflow-hidden"
           onClick={handleSignIn}
         >
+          {/** biome-ignore lint/performance/noImgElement: Imagem ja optimizada */}
           <img
             src={session.user.image ?? ""}
             alt={`avatar-usuario-${session.user.name}`}
