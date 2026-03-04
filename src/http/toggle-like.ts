@@ -5,7 +5,7 @@ interface ToggleLikeParams {
   issueId: string
 }
 
-export async function ToggleLike({ issueId }: ToggleLikeParams) {
+export async function toggleLike({ issueId }: ToggleLikeParams) {
   const url = new URL(
     `/api/issues/${issueId}/like`,
     clientEnv.NEXT_PUBLIC_API_URL,
