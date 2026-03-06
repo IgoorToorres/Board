@@ -2,12 +2,24 @@
 
 import { authClient } from "@/lib/auth-client"
 import { Loader2, LogInIcon } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export default function UserButton() {
+  const router = useRouter()
   const { data: session, isPending } = authClient.useSession()
 
   async function handleSignIn() {
     await authClient.signIn.social({ provider: "github", callbackURL: "/" })
+  }
+
+  async function handleSignOut() {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/")
+        },
+      },
+    })
   }
   return (
     <>
@@ -19,7 +31,7 @@ export default function UserButton() {
         <button
           type="button"
           className="size-8 rounded-full overflow-hidden"
-          onClick={handleSignIn}
+          onClick={handleSignOut}
         >
           {/** biome-ignore lint/performance/noImgElement: Imagem ja optimizada */}
           <img
